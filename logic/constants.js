@@ -1,4 +1,4 @@
-export const CONSTANTS = {
+export const Constants = {
   MAX_ANGLE: 30,
   WEIGHT_MIN: 1,
   WEIGHT_MAX: 10,
