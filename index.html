@@ -3,9 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <title>Seesaw Simulation by Ozan Kürkçü</title>
 </head>
 <body>
-    
+    <div class="container">
+        <!-- Stat Section -->
+        <div class="stat-container">
+            <div class="stat-box">
+                <div class="stat-header">
+                    Left Weight
+                </div>
+                <div class="stat-value">
+                    0.0 kg
+                </div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-header">
+                    Next Weight
+                </div>
+                <div class="stat-value">
+                    0.0 kg
+                </div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-header">
+                    Right Weight
+                </div>
+                <div class="stat-value">
+                    0.0 kg
+                </div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-header">
+                    Tilt Angle
+                </div>
+                <div class="stat-value">
+                    0.0°
+                </div>
+            </div>
+        </div>
+
+        <!-- Seesaw Section -->
+        <div class="seesaw-container">
+           <div class="seesaw-clickable-area" id="seesaw-clickable-area">
+               <div class="pivot" id="pivot"></div>
+               <div class="plank" id="plank"></div>
+               <div class="line-preview" id="line-preview"></div>
+               <div class="object-preview" id="object-preview"></div>
+           </div>
+           <div class="seesaw-ground"></div>
+        </div>
+
+         <!-- Control Section -->
+        <div class="control-container">
+            <button class="reset-btn" id="reset-btn">🔄️ Reset Seesaw</button>
+        </div>
+
+        <!-- Log Section -->
+        <div class="log-container" id="log-container">
+            
+        </div>
+    </div>
 </body>
+<script type="module" src="script.js"></script>
 </html>
