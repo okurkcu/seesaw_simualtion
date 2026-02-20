@@ -99,24 +99,29 @@ body{
     transition: transform 0.4s ease;
 }
 
-.object-preview {
+.preview-weight {
   position: absolute;
-  top: 0;
+  top: 40%;
+  transform: translate(-50%, -50%);
   border-radius: 50%;
+  opacity: 0.5;
   pointer-events: none;
   display: none;
-  transition: left 0.05s linear;
-  z-index: 20; /* appear above the plank */
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
 }
 
-.line-preview {
+.preview-line {
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: 40%;
   width: 2px;
-  background: rgba(0,0,0,0.2);
+  height: 50px;
+  opacity: 0.5;
   display: none;
   pointer-events: none;
+  transform: translate(-50%);
 }
 
 .seesaw-ground{

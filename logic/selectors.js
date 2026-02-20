@@ -7,6 +7,8 @@ export const Selectors = {
     seesawClickableArea: document.querySelector('#seesaw-clickable-area'),
     plank: document.querySelector('#plank'),
     pivot: document.querySelector('#pivot'),
+    previewBall: document.querySelector('#preview-weight'),
+    previewLine: document.querySelector('#preview-line'),
 
     resetBtn: document.querySelector('#reset-btn'),
 

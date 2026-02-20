@@ -2,7 +2,6 @@ import { Selectors } from "./selectors.js";
 import { State } from "./state.js";
 import { calculateAngle } from "./physics.js";
 import Weight from "./weight.js";
-import Preview from "./preview.js";
 
 // console.log(calculateAngle(1000));
 
@@ -11,7 +10,6 @@ import Preview from "./preview.js";
 // Selectors.plank.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
 
 const state = new State();
-const preview = new Preview(Selectors.seesawClickableArea);
 
 // Generating random weight (1-10)
 const getRandomWeight = () => {
@@ -40,8 +38,6 @@ const getMiddlePoint = () => {
 
 // Temp local next weight variable
 let nextWeight = null;
-let nextWeightBall = null;
-let nextWeightLine = null;
 
 // Getting the mouse X Position relative to the clickable area
 const getRelativeX = (e) => {
@@ -57,9 +53,16 @@ const generateNextWeight = () => {
     nextWeight = new Weight(0, randomWeight, randomColor);
     console.log('Next weight generated: ', nextWeight);
     Selectors.nextWeight.innerHTML = (nextWeight.weight);
+
+    const size = nextWeight.getSize();
+
+    Selectors.previewBall.style.width = `${size}px`;
+    Selectors.previewBall.style.height = `${size}px`;
+    Selectors.previewBall.style.backgroundColor = randomColor;
+    Selectors.previewBall.textContent = `${randomWeight}kg`;
+
+    Selectors.previewLine.style.backgroundColor = randomColor;
     
-    // Create ball visual for next weight
-    preview.generate(nextWeight);
 }
 
 // Function for adding logs
@@ -105,21 +108,24 @@ Selectors.seesawClickableArea.addEventListener("mousemove", (e) => {
 
     nextWeight.x = relativeX;
 
-    preview.updatePosX(relativeX);
+    Selectors.previewBall.style.left = `${relativeX}px`;
+    Selectors.previewLine.style.left = `${relativeX}px`;
+
+    Selectors.previewBall.style.display = "flex";
+    Selectors.previewLine.style.display = "flex";
 
     console.log('Preview X: ', nextWeight.x);
     console.log('Preview weight: ', nextWeight);
+
+    console.log("Ball Location: ", Selectors.previewBall.style.left);
+    console.log("Line Location and Display: ", Selectors.previewLine.style.left, Selectors.previewLine.style.display);
 
 });
 
 // Event Listener for when mouse leaves the clickable area
 Selectors.seesawClickableArea.addEventListener("mouseleave", () => {
-    preview.hide();
-});
-
-// Event Listener for when mouse enters the clickable area
-Selectors.seesawClickableArea.addEventListener("mouseenter", () => {
-    preview.show();
+    Selectors.previewBall.style.display = "none";
+    Selectors.previewLine.style.display = "none";
 });
 
 var middlePoint = getMiddlePoint();
@@ -159,7 +165,4 @@ Selectors.seesawClickableArea.addEventListener("click", (e) => {
 
     // Generate the next weight after the first time
     generateNextWeight();
-    
-    preview.updatePosX(relativeX);
-    preview.show();
 });
