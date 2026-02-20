@@ -3,11 +3,9 @@ import { State } from "./state.js";
 import { calculateAngle } from "./physics.js";
 import Weight from "./weight.js";
 
-// console.log(calculateAngle(1000));
+let angle = calculateAngle(5000);
 
-// let angle = calculateAngle(5000);
-
-// Selectors.plank.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+Selectors.plank.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
 
 const state = new State();
 
@@ -138,11 +136,29 @@ Selectors.seesawClickableArea.addEventListener("click", (e) => {
     }
 
     const relativeX = getRelativeX(e);
+    const plankRect = Selectors.plank.getBoundingClientRect();
+
+    const localX = e.clientX - plankRect.left;
 
     nextWeight.x = relativeX;
 
     // Add weight to the state
     state.addWeight(nextWeight);
+
+    // Cloning preview ball and giving style to make it real weight
+    const droppedBall = Selectors.previewBall.cloneNode(true);
+    droppedBall.style.position = "absolute";
+    droppedBall.style.left = `${localX}px`;
+    droppedBall.style.opacity = "1";
+    droppedBall.style.display = "flex";
+    droppedBall.style.top = "-500px";
+    droppedBall.style.transition = "top 0.5s ease";
+
+    setTimeout(() => {
+        droppedBall.style.top = "0px";
+    }, 10);
+
+    Selectors.plank.appendChild(droppedBall);
 
     // Add weights to the left or right
     const leftTotal = state.getLeftTotal(middlePoint);
