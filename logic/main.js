@@ -14,3 +14,7 @@ console.log('Log Container: ', Selectors.logContainer);
 
 
 console.log(calculateAngle(1000));
+
+let angle = calculateAngle(5000);
+
+Selectors.plank.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
