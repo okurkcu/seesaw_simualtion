@@ -7,6 +7,10 @@ export class State {
         this.weights.push(weightBall);
     }
 
+    reset() {
+        this.weights = [];
+    }
+
     getLeftTotal(pivotX) {
         return this.weights
             .filter(weightBall => weightBall.x < pivotX)

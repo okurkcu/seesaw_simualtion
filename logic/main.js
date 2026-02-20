@@ -89,6 +89,7 @@ Selectors.seesawClickableArea.addEventListener("click", (e) => {
     droppedBall.style.display = "flex";
     droppedBall.style.top = "-500px";
     droppedBall.style.transition = "top 0.5s ease";
+    droppedBall.classList.add("dropped-ball");
 
     setTimeout(() => {
         droppedBall.style.top = "0px";
@@ -124,3 +125,27 @@ Selectors.seesawClickableArea.addEventListener("click", (e) => {
     // Generate the next weight after the first time
     generateNextWeight();
 });
+
+// Reset on button click
+Selectors.resetBtn.addEventListener("click", (e) => {
+    // Reset the state
+    state.reset();
+
+    // Make the plank flat
+    Selectors.plank.style.transform = "translate(-50%, -50%) rotate(0deg)";
+
+    // Reset the UI
+    Selectors.leftWeight.innerHTML = "0.0kg";
+    Selectors.rightWeight.innerHTML = "0.0kg";
+    Selectors.tiltAngle.innerHTML = "0.0°";
+
+    // Cleaning the log
+    Selectors.logContainer.innerHTML = "";
+
+    // Clean the dropped weight on the plank
+    const droppedBalls = Selectors.plank.querySelectorAll(".dropped-ball");
+    droppedBalls.forEach(ball => ball.remove());
+
+    // Generating the next weight
+    generateNextWeight();
+})
