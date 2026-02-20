@@ -5,8 +5,6 @@ export const Selectors = {
     tiltAngle: document.querySelector('#tiltAngle'),
 
     seesawClickableArea: document.querySelector('#seesaw-clickable-area'),
-    linePreview: document.querySelector('#line-preview'),
-    objectPreview: document.querySelector('#object-preview'),
     plank: document.querySelector('#plank'),
     pivot: document.querySelector('#pivot'),
 
