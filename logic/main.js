@@ -96,6 +96,12 @@ Selectors.seesawClickableArea.addEventListener("click", (e) => {
 
     Selectors.plank.appendChild(droppedBall);
 
+    // Calculate angle and tilt plank
+    const angle = calculateAngle(state.weights, middlePoint);
+
+    Selectors.plank.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+    Selectors.tiltAngle.innerHTML = `${angle.toFixed(1)}°`;
+
     // Add weights to the left or right
     const leftTotal = state.getLeftTotal(middlePoint);
     const rightTotal = state.getRightTotal(middlePoint);
