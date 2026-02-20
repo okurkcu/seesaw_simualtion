@@ -8,6 +8,7 @@ export const Selectors = {
     linePreview: document.querySelector('#line-preview'),
     objectPreview: document.querySelector('#object-preview'),
     plank: document.querySelector('#plank'),
+    pivot: document.querySelector('#pivot'),
 
     resetBtn: document.querySelector('#reset-btn'),
 

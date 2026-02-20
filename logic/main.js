@@ -1,13 +1,15 @@
 import { Selectors } from "./selectors.js";
-import './physics.js'
+import { State } from "./state.js";
 import { calculateAngle } from "./physics.js";
 import Weight from "./weight.js";
 
-console.log(calculateAngle(1000));
+// console.log(calculateAngle(1000));
 
-let angle = calculateAngle(5000);
+// let angle = calculateAngle(5000);
 
-Selectors.plank.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+// Selectors.plank.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+
+const state = new State();
 
 // Generating random weight (1-10)
 const getRandomWeight = () => {
@@ -19,6 +21,19 @@ const getRandomWeight = () => {
 const getRandomColor = () => {
     const colors = ["#E74C3C", "#3598DB", "#F39C12", "#34495E", "#2FCC71", "#9B59B6"];
     return colors[Math.floor(Math.random() * colors.length)];
+}
+
+// Calculating exact middle point
+const getMiddlePoint = () => {
+    const clickableAreaRect = Selectors.seesawClickableArea.getBoundingClientRect();
+    const pivotRect = Selectors.pivot.getBoundingClientRect();
+
+    // Equilizing Clickable Area and Pivot's reference point
+    const middlePoint =
+        (pivotRect.left - clickableAreaRect.left) +
+        pivotRect.width / 2;
+
+    return middlePoint;
 }
 
 // Temp local next weight variable
@@ -58,6 +73,9 @@ Selectors.seesawClickableArea.addEventListener("mousemove", (e) => {
 
 });
 
+var middlePoint = getMiddlePoint();
+console.log("Middle Point: ", middlePoint);
+
 // Event Listener for click and drop weight
 Selectors.seesawClickableArea.addEventListener("click", (e) => {
     if(!nextWeight){
@@ -67,6 +85,19 @@ Selectors.seesawClickableArea.addEventListener("click", (e) => {
     const relativeX = getRelativeX(e);
 
     nextWeight.x = relativeX;
+
+    // Add weight to the state
+    state.addWeight(nextWeight);
+
+    // Add weights to the left or right
+    const leftTotal = state.getLeftTotal(middlePoint);
+    const rightTotal = state.getRightTotal(middlePoint);
+
+    console.log('Left: ', leftTotal);
+    console.log('Right: ', rightTotal);
+
+    Selectors.leftWeight.innerHTML = `${leftTotal}.0 kg`;
+    Selectors.rightWeight.innerHTML = `${rightTotal}.0 kg`;
 
     console.log('Dropped Weight: ', nextWeight);
 
