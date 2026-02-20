@@ -55,6 +55,27 @@ const generateNextWeight = () => {
     Selectors.nextWeight.innerHTML = (nextWeight.weight);
 }
 
+// Function for adding logs
+const addLog = (weight, direction, distance) => {
+    const logDiv = document.createElement('div');
+    logDiv.textContent = `📦 ${weight}kg dropped on ${direction} side at ${distance.toFixed(0)}px from center`;
+
+    // Giving Styling
+    logDiv.style.backgroundColor = '#f4f4f9';
+    logDiv.style.color = '#333';
+    logDiv.style.padding = '10px 15px';
+    logDiv.style.borderRadius = '5px';
+    logDiv.style.borderLeft = '4px solid #007bff';
+    logDiv.style.marginBottom = '8px';
+
+    Selectors.logContainer.prepend(logDiv);
+    
+    // Keep only the last 10 logs
+    if (Selectors.logContainer.children.length > 9) {
+        Selectors.logContainer.removeChild(Selectors.logContainer.lastChild);
+    }
+}
+
 // Generate next weight for the first time
 generateNextWeight();
 
@@ -98,6 +119,13 @@ Selectors.seesawClickableArea.addEventListener("click", (e) => {
 
     Selectors.leftWeight.innerHTML = `${leftTotal}.0 kg`;
     Selectors.rightWeight.innerHTML = `${rightTotal}.0 kg`;
+
+    // Deciding on direction and distance from middle point
+    const direction = nextWeight.x < middlePoint ? "left" : "right";
+    const distance = Math.abs(nextWeight.x - middlePoint);
+
+    // Adding log on every weight drop
+    addLog(nextWeight.weight, direction, distance);
 
     console.log('Dropped Weight: ', nextWeight);
 
