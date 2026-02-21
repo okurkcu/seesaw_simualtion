@@ -1,3 +1,7 @@
+*{
+    box-sizing: border-box;
+}
+
 body{
     margin: 0;
     padding: 20px;
@@ -73,6 +77,25 @@ body{
 
 .seesaw-clickable-area:hover{
     cursor: pointer;
+}
+
+@keyframes misclick-red-flash {
+    0%, 100%{
+        border: 1px solid #e0e1e1;
+    }
+    25% {
+        border: 3px solid #e74c3c;
+    }
+    50% {
+        border: 1px solid #e0e1e1;
+    }
+    75% {
+        border: 3px solid #e74c3c;
+    }
+}
+
+.seesaw-clickable-area.misclick-flash{
+    animation: misclick-red-flash 1s ease-in-out;
 }
 
 .pivot{
@@ -194,4 +217,16 @@ body{
 .log-container::-webkit-scrollbar-thumb:hover {
     background-color: #91979c;
     cursor: pointer;
+}
+
+.logDiv {
+    background-color: #f4f4f9;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border-left: 4px solid #007bff;
+    margin-bottom: 8px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }

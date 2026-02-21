@@ -10,7 +10,7 @@ export const calculateAngle = (weights, middlePoint) => {
         totalTorque += torque;
     });
 
-    const normalizedTorque = totalTorque / 10;
+    const normalizedTorque = totalTorque / 20;
 
     return Math.max(-Constants.MAX_ANGLE, Math.min(Constants.MAX_ANGLE, normalizedTorque));
 }

@@ -10,21 +10,18 @@ const state = new State();
 let nextWeight = null;
 
 var middlePoint = getMiddlePoint();
-console.log("Middle Point: ", middlePoint);
 
 // Updating total weights and angle
 const updateTotalsAndAngle = () => {
+
     // Add weights to the left or right
     const leftTotal = state.getLeftTotal(middlePoint);
     const rightTotal = state.getRightTotal(middlePoint);
 
-    console.log('Left: ', leftTotal);
-    console.log('Right: ', rightTotal);
-
     Selectors.leftWeight.innerHTML = `${leftTotal}.0 kg`;
     Selectors.rightWeight.innerHTML = `${rightTotal}.0 kg`;
 
-    // Calculate angle and tilt plank
+    // Calculate angle and tilt of plank
     const angle = calculateAngle(state.weights, middlePoint);
 
     Selectors.plank.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
@@ -41,7 +38,6 @@ const restoreSimulation = () => {
 
     savedWeights.forEach(w => {
         const weightInstance = new Weight(w.x, w.weight, w.color);
-
         state.weights.push(weightInstance);
     });
 
@@ -61,7 +57,7 @@ const loadWeight = (droppedBall, localX) => {
     droppedBall.style.left = `${localX}px`;
     droppedBall.style.opacity = "1";
     droppedBall.style.display = "flex";
-    droppedBall.style.top = "0px";
+    droppedBall.style.top = "-100px";
     droppedBall.style.transition = "top 0.5s ease";
     droppedBall.classList.add("dropped-ball");
 
@@ -76,7 +72,6 @@ const generateNextWeight = () => {
     const randomColor = getRandomColor();
 
     nextWeight = new Weight(0, randomWeight, randomColor);
-    console.log('Next weight generated: ', nextWeight);
     Selectors.nextWeight.innerHTML = (nextWeight.weight);
 
     const size = nextWeight.getSize();
@@ -107,12 +102,6 @@ Selectors.seesawClickableArea.addEventListener("mousemove", (e) => {
 
     Selectors.previewBall.style.display = "flex";
     Selectors.previewLine.style.display = "flex";
-
-    console.log('Preview X: ', nextWeight.x);
-    console.log('Preview weight: ', nextWeight);
-
-    console.log("Ball Location: ", Selectors.previewBall.style.left);
-    console.log("Line Location and Display: ", Selectors.previewLine.style.left, Selectors.previewLine.style.display);
 
 });
 
@@ -156,12 +145,23 @@ Selectors.seesawClickableArea.addEventListener("click", (e) => {
     // Adding log on every weight drop
     addLog(nextWeight.weight, direction, distance);
 
-    console.log('Dropped Weight: ', nextWeight);
-
     // Generate the next weight after the first time
     generateNextWeight();
 
     state.saveToStorage();
+});
+
+// Highlight the clickable area for user when clicked outside
+Selectors.seesawContainer.addEventListener("click", (e) => {
+    if(Selectors.seesawClickableArea.contains(e.target)) {
+        return;
+    }
+
+    Selectors.seesawClickableArea.classList.add("misclick-flash");
+
+    setTimeout(() => {
+        Selectors.seesawClickableArea.classList.remove("misclick-flash");
+    }, 1000);
 });
 
 // Reset on button click
@@ -183,9 +183,6 @@ Selectors.resetBtn.addEventListener("click", (e) => {
     // Clean the dropped weight on the plank
     const droppedBalls = Selectors.plank.querySelectorAll(".dropped-ball");
     droppedBalls.forEach(ball => ball.remove());
-
-    // const balls = Selectors.seesawClickableArea.querySelectorAll(".dropped-ball");
-    // balls.forEach(ball => ball.remove());
 
     // Generating the next weight
     generateNextWeight();

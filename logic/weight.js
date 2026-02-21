@@ -8,7 +8,7 @@ export default class Weight {
     }
 
     getSize() {
-      // Base weight is 34kg. Every kg is adding 4 kg more.
+      // Base weight is 34 px. Every kg is adding 4 px more.
       return 34 + (this.weight - 1) * 4;
     }
 
@@ -19,7 +19,7 @@ export default class Weight {
         ball.classList.add("dropped-ball");
 
         ball.style.position = "absolute";
-        ball.style.left = `${this.x - 30}px`;
+        ball.style.left = `${this.x - 40}px`;
         ball.style.height = `${this.getSize()}px`;
         ball.style.width = `${this.getSize()}px`;
         ball.style.backgroundColor = this.color;
@@ -32,13 +32,10 @@ export default class Weight {
         ball.textContent = `${this.weight}kg`;
 
         const plankRect = Selectors.plank.getBoundingClientRect();
+        const containerRect = Selectors.seesawClickableArea.getBoundingClientRect();
 
         const plankTopRelative = plankRect.top - containerRect.top;
-        console.log("PlankTopRelative: ", plankTopRelative);
-        console.log("plankRect.top: ", plankRect.top);
-        console.log("containerRect.top: ", containerRect.top);
-        console.log("Restored Weight X: ", this.x);
-        ball.style.bottom = `${plankRect.height - 30}px`;
+        ball.style.bottom = `${plankRect.height -30}px`;
 
         this.element = ball;
 

@@ -26,7 +26,6 @@ export class State {
 
     saveToStorage() {
         localStorage.setItem(Constants.CACHE_KEY, JSON.stringify(this.weights));
-        console.log("Saved: ", this.weights);
     }
 
     loadFromStorage() {
@@ -36,6 +35,11 @@ export class State {
             return [];
         }
 
-        return JSON.parse(data);
+        try {
+            return JSON.parse(data);
+        } catch (err) {
+            console.error('Failed to load from localStorage', err);
+            return [];
+        }
     }
 }
