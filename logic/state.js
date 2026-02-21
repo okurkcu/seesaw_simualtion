@@ -1,3 +1,5 @@
+import { Constants } from "./constants.js";
+
 export class State {
     constructor() {
         this.weights = [];
@@ -9,6 +11,7 @@ export class State {
 
     reset() {
         this.weights = [];
+        localStorage.removeItem(Constants.CACHE_KEY);
     }
 
     getLeftTotal(pivotX) {
@@ -19,5 +22,20 @@ export class State {
 
     getRightTotal(pivotX) {
         return this.weights.filter(weightBall => weightBall.x >= pivotX).reduce((sum, weightBall) => sum + weightBall.weight, 0);
+    }
+
+    saveToStorage() {
+        localStorage.setItem(Constants.CACHE_KEY, JSON.stringify(this.weights));
+        console.log("Saved: ", this.weights);
+    }
+
+    loadFromStorage() {
+        const data = localStorage.getItem(Constants.CACHE_KEY);
+
+        if(!data){
+            return [];
+        }
+
+        return JSON.parse(data);
     }
 }

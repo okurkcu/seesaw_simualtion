@@ -4,7 +4,7 @@ export const addLog = (weight, direction, distance) => {
     const logDiv = document.createElement('div');
     logDiv.textContent = `📦 ${weight}kg dropped on ${direction} side at ${distance.toFixed(0)}px from center`;
     
-    // Giving Styling
+    // Giving Styling to logs
     logDiv.style.backgroundColor = '#f4f4f9';
     logDiv.style.color = '#333';
     logDiv.style.padding = '10px 15px';
@@ -17,13 +17,12 @@ export const addLog = (weight, direction, distance) => {
     
     Selectors.logContainer.prepend(logDiv);
         
-    // Log animation
     setTimeout(() => {
         logDiv.style.opacity = '1';
         logDiv.style.transform = 'translateX(0)';
     }, 10);
         
-    // Keep only the last 10 logs
+    // Keeping only the last 10 logs
     if (Selectors.logContainer.children.length > 9) {
         Selectors.logContainer.removeChild(Selectors.logContainer.lastChild);
     }

@@ -30,3 +30,10 @@ export function getMiddlePoint() {
 
     return middlePoint;
 }
+
+export function playDropSound() {
+    const audio = new Audio("../assets/dropSound.mp3");
+    audio.play().catch(err => {
+        console.warn("Unable to play drop sound:", err);
+    });
+}
