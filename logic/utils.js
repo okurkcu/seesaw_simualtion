@@ -32,7 +32,7 @@ export const getMiddlePoint = () => {
 }
 
 export const playDropSound = () => {
-    const audio = new Audio("assets/dropSound.mp3");
+    const audio = new Audio("./assets/dropSound.mp3");
     audio.play().catch(err => {
         console.warn("Unable to play drop sound:", err);
     });
